@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+import java.math.BigInteger;
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        ListNode l3 = new ListNode();
+        
+        BigInteger l1Number = BigInteger.ZERO;
+        BigInteger l2Number = BigInteger.ZERO;
+        
+        ListNode currentNode = l1;
+        BigInteger i= BigInteger.ONE;
+        while(currentNode!=null){
+        	BigInteger newNumber = new BigInteger(String.valueOf(currentNode.val)).multiply(i);
+            l1Number = l1Number.add(newNumber);
+            i = i.multiply(BigInteger.TEN);
+            currentNode = currentNode.next;
+        }
+        currentNode = l2;
+        i= BigInteger.ONE;;
+        while(currentNode!=null){
+        	BigInteger newNumber = new BigInteger(String.valueOf(currentNode.val)).multiply(i);
+        	l2Number = l2Number.add(newNumber);
+        	i = i.multiply(BigInteger.TEN);
+            currentNode = currentNode.next;
+        }
+        
+        BigInteger a = new BigInteger(String.valueOf(l2Number));
+        BigInteger b = new BigInteger(String.valueOf(l1Number));
+        
+        BigInteger sum = a.add(b);
+        
+        ListNode head = l3;
+        while(sum.compareTo(BigInteger.ZERO)>0){
+            int digit = sum.mod(BigInteger.TEN).intValue();
+            sum = sum.divide(BigInteger.TEN);
+            l3.val = digit;
+            if(sum.compareTo(BigInteger.ZERO)>0){
+                l3.next = new ListNode();
+                l3 = l3.next;
+            } 
+        }
+        
+        return head;
+        
+    }
+}
