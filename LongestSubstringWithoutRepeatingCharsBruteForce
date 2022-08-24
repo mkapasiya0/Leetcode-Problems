@@ -1,0 +1,34 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int lengthOfLongestSubstring = 0;
+        
+        /* HashSet for containing non repeating characters */
+        Set<Character> substringSet = new HashSet<>();
+        
+        for(int i=0 ;i<s.length() && lengthOfLongestSubstring< s.length() ; i++) {
+			/* this loop is for fixing each character in the given string */
+        	
+        	int currentSubStrlength = 0;
+        	for(int j=i; j<s.length(); j++) {
+				/* This loop is for finding substring for fixed character */ 
+        		
+        		if(substringSet.contains(s.charAt(j))) {
+					/* A repeating character is found in the current substring */
+        			substringSet.clear();
+        			break;
+        		}
+        		substringSet.add(s.charAt(j));
+        		currentSubStrlength++;
+        	}
+        	
+			/*
+			 * Reinitialize length of longest Substring if current substring length is
+			 * bigger.
+			 */
+        	lengthOfLongestSubstring = (currentSubStrlength > lengthOfLongestSubstring)
+					        			? currentSubStrlength 
+					        		    : lengthOfLongestSubstring;
+        }
+        return lengthOfLongestSubstring;
+    }
+}
